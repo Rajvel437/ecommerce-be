@@ -8,18 +8,13 @@ from app.core.dependecies import get_current_user
 
 router=APIRouter()
 
-@router.post("/login",response_model=AuthResponse)
+@router.get("/me")
 async def login(
-    request:AuthRequest,
     service:AuthService = Depends(get_auth_service)
 ):
     try:
-        token = await service.auth_login(request.email,request.password)
-        return {
-                "access_token": token,
-                "token_type": "bearer"
-            }
+        # token = await service.auth_login(request.email,request.password)
+        token = "token not valid"
+        return {"msg":"Token generation successful","token":token}
     except Exception as e:
         raise e
-
-

@@ -29,6 +29,7 @@ class ConfigSettings:
     def engine(self):
         try:
             engine = create_engine(self._connection_string())
+            print(self._connection_string())
             return engine
         except Exception as e:
             logging.critical(f"error occured while connecting sql server engine {str(e)}")

@@ -5,12 +5,15 @@ from sqlalchemy.orm import Session
 from app.database.mssql import DB
 from app.services.user import userService
 from app.services.auth import AuthService
+from app.services.products import ProductService
 from functools import lru_cache
 from fastapi.security import OAuth2PasswordBearer
 from app.models.user import User
 from app.core.jwt import decode_token
 from app.core.exceptions import UserNotFoundError
 import logging
+
+
 
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="/api/v1/login")
 
@@ -32,6 +35,11 @@ def get_user_service()->userService:
 def get_auth_service()->AuthService:
     """ Get Auth Service instance """
     return AuthService()
+
+@lru_cache
+def get_product_service()->ProductService:
+    """ Get Product Service instance """
+    return ProductService()
 
 async def get_current_user(
     token: str = Depends(oauth2_scheme),

@@ -41,6 +41,7 @@ def get_product_service()->ProductService:
     """ Get Product Service instance """
     return ProductService()
 
+
 async def get_current_user(
     token: str = Depends(oauth2_scheme),
     db: Session = Depends(get_db),

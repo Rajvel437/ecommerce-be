@@ -1,11 +1,11 @@
 
-from sqlalchemy.orm import declarative_base
+from sqlalchemy.orm import declarative_base,relationship
 from sqlalchemy import Integer,DateTime,Column,String,func
 from app.database.mssql import engine
 from app.models.base import Base
 
 class User(Base):
-    __tablename__ = "Users"
+    __tablename__ = "users"
 
     id = Column(String(100),primary_key=True,index=True)
     name = Column(String(200),nullable=False)
@@ -15,3 +15,8 @@ class User(Base):
     updatedAt = Column(DateTime,onupdate=func.now())
     hashedPassword = Column(String(500),nullable=False)
 
+    carts = relationship(
+        "Cart",
+        back_populates="user",
+        cascade="all, delete-orphan"
+    )

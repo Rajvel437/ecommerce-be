@@ -1,5 +1,5 @@
 from fastapi import APIRouter,Depends
-from app.routes.api.v1.endpoints import user,auth,me_api,products,get_products
+from app.routes.api.v1.endpoints import user,auth,me_api,products,get_products,get_product_by_id
 from app.core.dependecies import get_current_user
 
 
@@ -16,6 +16,7 @@ api_router.include_router(
     dependencies=[Depends(get_current_user)]
 )
 api_router.include_router(get_products.router,prefix="/v1",tags=["Products"])
+api_router.include_router(get_product_by_id.router,prefix="/v1",tags=["Products"])
 
 
 

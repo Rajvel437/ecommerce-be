@@ -1,0 +1,28 @@
+"""create carts and cart_items tables
+
+Revision ID: bf77f61c26e8
+Revises: c155ec61e363
+Create Date: 2026-02-09 08:38:14.521289
+
+"""
+from typing import Sequence, Union
+
+from alembic import op
+import sqlalchemy as sa
+
+
+# revision identifiers, used by Alembic.
+revision: str = 'bf77f61c26e8'
+down_revision: Union[str, Sequence[str], None] = 'c155ec61e363'
+branch_labels: Union[str, Sequence[str], None] = None
+depends_on: Union[str, Sequence[str], None] = None
+
+
+def upgrade() -> None:
+    """Upgrade schema."""
+    pass
+
+
+def downgrade() -> None:
+    """Downgrade schema."""
+    pass

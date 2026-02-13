@@ -1,6 +1,7 @@
 from app.database.mssql import db
 import logging
 from app.models.product import Product
+from app.core.exceptions import ProductNotFoundException
 import uuid
 
 class ProductService:
@@ -41,10 +42,24 @@ class ProductService:
             query = query.offset(offset).limit(limit)
 
             product_records = query.all()
+            if not product_records:
+                return []
 
             return product_records
         except Exception as e:
             logging.error(f"error occured while fecthing all products {str(e)}")
             raise e
-        
+    
+    async def get_product_by_id(self,id:str):
+        try:
+            query = db.query(Product)
+            query = query.filter(Product.is_active==True)
+            query = query.filter(Product.id==id)
+            product_record = query.first()
+            if not product_record:
+                raise ProductNotFoundException(field="id",value=id)
+            return product_record
+        except Exception as e:
+            logging.error(f"error occured while getting product by id {str(e)}")
+            raise e
 

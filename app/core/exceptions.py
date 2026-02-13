@@ -39,3 +39,11 @@ class PasswordNotValid(CustomBusinessException):
             details={"msg":"password not matched"}
         )
 
+    
+class ProductNotFoundException(CustomBusinessException):
+    def __init__(self, field:str, value:str):
+        message = f"Product not exist in db field {field}: value {value}"
+        status_code=404
+        details = {"field": field, "value": value}
+        code="PRODUCT NOT FOUND"
+        super().__init__(message, code=code, status_code=status_code, details=details)
